@@ -1,24 +1,45 @@
-# README
+Department Store : Rails Routes / Controllers / Views
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Instructions:
 
-Things you may want to cover:
+rails new department_store -d postgresql
 
-* Ruby version
+cd department_store
 
-* System dependencies
+git add .
 
-* Configuration
+git commit -m ‘initial commit’
 
-* Database creation
+(Create a git repo, copy in git remote add origin url)
 
-* Database initialization
+(Clean up/modify Gemfile)
 
-* How to run the test suite
+bundle
 
-* Services (job queues, cache servers, search engines, etc.)
+rails g model department name
 
-* Deployment instructions
+rails g controller departments index show new edit --skip-routes
 
-* ...
+rails g controller items index show new edit --skip-routes
+
+rails g model item name description:text department:belongs_to
+
+(Inside /app/models/department.rb, add “has_many :items” to the department class)
+
+(In config/routes.rb, add:
+
+root ‘departments#index
+
+resources :departments do
+	resources :items
+end
+)
+
+bundle exec db:create db:migrate
+
+(Fill out controller methods, pay attention to how id’s are referenced when you nest routes, i.e. when should you use “id” vs “department_id”?)
+
+(Finally fill out your views)
+
+—————————————
+Good work, now continue on with the bonus objectives!
